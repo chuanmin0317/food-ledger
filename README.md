@@ -71,7 +71,7 @@
 
 ## 5. GUI 規劃
 
-![alt text](docs\images\gui-preview.png)
+![gui 設計](docs/images/gui-preview.png)
 
 介面圖片為設計草稿，數值、日期與部分文字僅供示意。圖片位於 `docs/images/gui-preview.png`，上傳 GitHub 時請保留此相對路徑。
 
