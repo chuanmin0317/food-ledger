@@ -97,7 +97,9 @@
 
 Presenter 透過 View 介面更新畫面，透過 Repository 和辨識介面取得資料。依賴由建構子傳入，開發時可換成假實作。
 
-下列 UML 為概念類別圖。非同步方法的 callback／Future 等語法省略，程式語言、資料庫、辨識服務及排程方案待團隊確認。
+採用 Java 與 XML Views。下列 UML 為概念類別圖，非同步方法的 callback／Future 等語法省略；資料庫、辨識服務及排程方案待團隊確認。
+
+第一個開發目標是「手動新增餐點 → 儲存 → 顯示當日統計」。先完成草稿編輯、正式餐點儲存與每日營養／餐費加總，再接入目標設定、辨識與提醒功能。
 
 ### 記餐流程類別圖
 
@@ -113,6 +115,7 @@ class MealView {
 }
 class MealActivity
 class MealPresenter {
+    +startNewMeal()
     +scanLabel(ImageInput image)
     +analyzeFood(ImageInput image)
     +loadMeal(String id)
@@ -133,15 +136,26 @@ class FoodAnalyzer {
     <<interface>>
     +analyze(ImageInput image) List~FoodEstimate~
 }
+class MealDraft {
+    -String existingMealId
+}
+class Meal
+note for MealDraft "編輯時保留原 ID"
 MealView <|.. MealActivity
 MealActivity --> MealPresenter
 MealPresenter --> MealView
 MealPresenter --> MealRepository
 MealPresenter --> LabelScanner
 MealPresenter --> FoodAnalyzer
+MealView ..> MealDraft : displays
+MealPresenter ..> MealDraft : edits
+MealPresenter ..> Meal : creates after confirmation and validation
+MealRepository ..> Meal : saves and loads
 ```
 
-辨識結果先形成 `MealDraft`，使用者確認後再建立正式 `Meal`。編輯既有餐點時保留原 ID，儲存更新原紀錄。辨識或儲存失敗時保留草稿，讓使用者修正或重試。
+手動新增與辨識結果都先形成 `MealDraft`，使用者確認且通過驗證後才建立正式 `Meal`。新增草稿的 `existingMealId` 為 `null`；編輯時由既有 `Meal` 建立獨立草稿並保留原 ID，儲存更新同一筆紀錄。沿用歷史餐點建立新餐點時，`existingMealId` 仍為 `null`。
+
+`MealRepository` 只儲存正式 `Meal`，餐點與品項須一起儲存。草稿及未確認的辨識結果不納入營養與支出統計。辨識或儲存失敗時保留草稿，讓使用者修正或重試。
 
 ### 首頁與設定類別圖
 
@@ -185,6 +199,17 @@ class ReminderScheduler {
     +schedule(ReminderSettings settings)
     +cancel()
 }
+class DashboardFragment
+class GoalActivity
+class Meal
+class DailySummary
+DashboardView <|.. DashboardFragment
+GoalView <|.. GoalActivity
+DashboardFragment --> DashboardPresenter
+GoalActivity --> GoalPresenter
+MealRepository ..> Meal : returns saved meals only
+NutritionService ..> Meal : summarizes saved meals
+NutritionService ..> DailySummary : creates
 DashboardPresenter --> DashboardView
 DashboardPresenter --> MealRepository
 DashboardPresenter --> SettingsRepository
@@ -194,13 +219,34 @@ GoalPresenter --> SettingsRepository
 GoalPresenter --> ReminderScheduler
 ```
 
-`DashboardFragment` 實作 `DashboardView`，`GoalActivity` 實作 `GoalView`。修改餐點或返回首頁時重新載入摘要；修改提醒時間時更新原排程。
+`DashboardFragment` 實作 `DashboardView`，由 `MainActivity` 承載；`GoalActivity` 實作 `GoalView`。儲存、修改、刪除餐點或返回首頁時，重新查詢正式餐點並計算摘要，不直接累加草稿數值。修改提醒時間時更新原排程。
+
+第一階段可先使用全部目標未設定的 `NutritionGoal`，顯示當日營養總量、餐費與餐點清單；目標編輯與進度顯示於後續完成。
 
 ### 核心資料類別圖
 
 ```mermaid
 classDiagram
 direction TB
+class MealDraft {
+    -String existingMealId
+    -LocalDateTime eatenAt
+    -MealType type
+    -Long totalCostMinor
+}
+class FoodItemDraft {
+    -String name
+    -String unitDescription
+    -Double consumedUnits
+    -Double caloriesKcal
+    -Double proteinG
+    -Double carbsG
+    -Double fatG
+    -NutritionSource source
+    -String estimationNote
+}
+note for MealDraft "existingMealId 可為 null；未完成欄位可留空"
+note for FoodItemDraft "營養欄位為每基準單位數值；null 表示尚未填寫或確認"
 class Meal {
     -String id
     -LocalDateTime eatenAt
@@ -242,6 +288,9 @@ class DailySummary {
     -boolean containsEstimates
     -boolean hasRecords
 }
+MealDraft "1" *-- "0..*" FoodItemDraft : items
+MealDraft ..> Meal : converted after confirmation and validation
+FoodItemDraft ..> FoodItem : converted after validation
 Meal "1" *-- "1..*" FoodItem : items
 FoodItem "1" *-- "1" Nutrition : perUnit
 DailySummary "1" *-- "1" Nutrition : consumed
@@ -249,6 +298,9 @@ DailySummary "1" *-- "4" GoalProgress : nutrientProgress
 DailySummary ..> NutritionGoal : calculatedFrom
 ```
 
+- `MealDraft` 與正式 `Meal` 分開，編輯草稿不直接修改已儲存紀錄。草稿可以沒有品項或留有空欄位；正式餐點至少包含一個有效品項。
+- `existingMealId == null` 表示新增，儲存時配置新 ID；非 null 表示編輯，使用原 ID 更新同一筆紀錄。
+- `FoodItemDraft` 使用可為 null 的 `Double` 保存待填營養及份量，金額草稿使用 `Long`；空值與明確填入的零不同。驗證後才建立 `FoodItem` 及其 `Nutrition`。
 - `Meal` 表示整餐，`FoodItem` 表示該餐實際吃下的品項。
 - `perUnit` 搭配 `unitDescription` 保存基準營養，例如「每份 200 mL」。
 - 品項攝取量為基準營養乘上 `consumedUnits`，整餐再加總各品項。
@@ -263,7 +315,8 @@ DailySummary ..> NutritionGoal : calculatedFrom
 
 | 類別 | 內容 |
 | --- | --- |
-| MealDraft | 尚未完成的餐別、日期、品項、金額，以及編輯時的原紀錄 ID |
+| MealDraft | 尚未完成的餐別、日期、品項、金額；`existingMealId` 新增時為 null，編輯時為原紀錄 ID |
+| FoodItemDraft | 可編輯的品名、基準單位、食用量、待填營養、來源與估算說明 |
 | ImageInput | 圖片來源的封裝 |
 | LabelResult | 標示數值、單位、包裝份數與待確認欄位 |
 | FoodEstimate | 食材名稱、估計份量、營養值與估算說明 |
@@ -312,31 +365,59 @@ ReminderPolicy ..> ReminderDecision : creates
 
 背景工作執行時重新讀取設定與當日餐點，沿用 `NutritionService` 計算差額。`ReminderPolicy` 判斷通知內容，`NotificationSender` 顯示通知。當日提醒狀態需持久化，搭配固定的當日通知識別及工作去重，處理重試或並行執行。日期與提醒時間採使用者本地時區。
 
-### 記餐互動流程
+### 記餐互動流程（第一階段：手動新增）
 
 ```mermaid
 sequenceDiagram
     actor User as 使用者
     participant View as MealActivity
     participant Presenter as MealPresenter
-    participant Scanner as LabelScanner
     participant Repo as MealRepository
-    User->>View: 選擇標示圖片
-    View->>Presenter: scanLabel(image)
-    Presenter->>View: setLoading(true)
-    Presenter->>Scanner: scan(image)
-    Scanner-->>Presenter: LabelResult
-    Presenter->>View: setLoading(false)
+    participant Dashboard as DashboardFragment
+    participant DP as DashboardPresenter
+    participant Nutrition as NutritionService
+    User->>View: 手動新增餐點
+    View->>Presenter: startNewMeal()
+    Presenter->>Presenter: 建立 MealDraft，existingMealId = null
     Presenter->>View: showDraft(draft)
-    User->>View: 修正份量並輸入金額
+    Note over View,Presenter: 編輯既有餐點時，以 loadMeal(id) 載入並建立保留原 ID 的草稿
+    User->>View: 填寫品項、營養、份量及金額並確認儲存
     View->>Presenter: saveMeal(draft)
-    Presenter->>Presenter: 驗證並建立 Meal
-    Presenter->>Repo: save(meal)
-    Repo-->>Presenter: 儲存成功
-    Presenter->>View: showSaved()
+    Presenter->>Presenter: 驗證草稿必填欄位與數值
+    alt 驗證失敗
+        Presenter->>View: showError(message)，保留草稿
+    else 驗證成功
+        Presenter->>View: setLoading(true)
+        alt existingMealId 為 null（新增）
+            Presenter->>Presenter: 配置新 ID 並建立 Meal，保留本次儲存識別供重試
+        else existingMealId 非 null（編輯）
+            Presenter->>Presenter: 使用原 ID 建立更新後的 Meal
+        end
+        Presenter->>Repo: save(meal)
+        alt 儲存失敗
+            Repo-->>Presenter: 儲存錯誤
+            Presenter->>View: setLoading(false)
+            Presenter->>View: showError(message)，保留草稿
+        else 儲存成功
+            Repo-->>Presenter: 儲存完成
+            Presenter->>View: setLoading(false)
+            Presenter->>View: showSaved()
+            View-->>Dashboard: 返回總覽
+            Dashboard->>DP: loadDay(date)
+            DP->>Repo: findByDate(date)
+            Repo-->>DP: 當日已儲存的 Meal 清單
+            DP->>Nutrition: summarize(meals, goal)
+            Note over DP,Nutrition: 第一階段使用全部目標未設定的 goal
+            Nutrition-->>DP: DailySummary
+            DP->>Dashboard: showSummary(summary)
+            DP->>Dashboard: showHistory(meals)
+        end
+    end
 ```
 
-非同步實作需讓失敗路徑同樣結束載入狀態，並避免畫面離開後更新失效的 View。連續點擊儲存、重試及編輯操作應維持同一筆紀錄的識別。
+後續接入 `LabelScanner` 或 `FoodAnalyzer` 時，辨識結果先轉成同一套 `MealDraft`／`FoodItemDraft`，透過 `showDraft()` 交由使用者確認，再走上述驗證與儲存流程；辨識完成不會自動儲存。
+
+非同步實作需讓失敗路徑同樣結束載入狀態，並避免畫面離開後更新失效的 View。儲存期間阻擋重複提交；新增流程為同一次儲存保留配置的 ID，重試不可重新產生 ID。編輯操作始終沿用 `existingMealId`，確保成功後只有同一筆紀錄。摘要查詢失敗時由 `DashboardView.showError()` 呈現錯誤，不將已成功的儲存當作失敗重送。
 
 ## 7. 三人分工
 
@@ -377,7 +458,7 @@ sequenceDiagram
 
 ## 10. 技術選型與執行方式
 
-目前尚未確認程式語言、Android SDK 版本、建置設定、資料庫、OCR 套件、模型供應商及營養資料來源。建立 Android 專案後，再補上實際環境需求、設定方式與可執行的建置指令。
+已決定採用 Java 與 XML Views，Android 專案骨架已建立。SDK 與建置設定以專案 Gradle 檔案為準；資料庫、OCR 套件、模型供應商及營養資料來源仍待確認，實際環境需求與建置執行方式待驗證後補上。
 
 介面設計允許先使用假 Repository 和假辨識服務完成主要操作流程，再換成正式實作。
 
