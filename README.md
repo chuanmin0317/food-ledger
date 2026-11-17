@@ -63,7 +63,7 @@
 | 挑戰 | 處理方向 | 評估方式 |
 | --- | --- | --- |
 | 標示欄位配對 | 區分每份與每 100 g，保留原圖供核對 | 欄位辨識與份量換算正確率 |
-| 食物份量與隱藏用料 | 允許修正份量，保存估算依據 | 已知重量餐點的估算誤差 |
+| 食物份量與隱藏用料 | 允許修正份量與營養值 | 已知重量餐點的估算誤差 |
 | 記錄負擔 | 整餐輸入一次金額，支援常吃餐點 | 記錄時間、修改次數、漏記餐數 |
 | 資料一致性 | 餐點與品項一起儲存，修改後重新計算摘要 | 新增、修改、刪除後數值一致 |
 | 非同步失敗 | 處理辨識逾時、格式錯誤、儲存失敗與重試 | 失敗後可繼續編輯，避免重複儲存 |
@@ -243,7 +243,6 @@ class FoodItemDraft {
     -Double carbsG
     -Double fatG
     -NutritionSource source
-    -String estimationNote
 }
 note for MealDraft "existingMealId 可為 null；未完成欄位可留空"
 note for FoodItemDraft "營養欄位為每基準單位數值；null 表示尚未填寫或確認"
@@ -259,7 +258,6 @@ class FoodItem {
     -String unitDescription
     -double consumedUnits
     -NutritionSource source
-    -String estimationNote
 }
 class Nutrition {
     -double caloriesKcal
@@ -316,10 +314,10 @@ DailySummary ..> NutritionGoal : calculatedFrom
 | 類別 | 內容 |
 | --- | --- |
 | MealDraft | 尚未完成的餐別、日期、品項、金額；`existingMealId` 新增時為 null，編輯時為原紀錄 ID |
-| FoodItemDraft | 可編輯的品名、基準單位、食用量、待填營養、來源與估算說明 |
+| FoodItemDraft | 可編輯的品名、基準單位、食用量、待填營養與來源 |
 | ImageInput | 圖片來源的封裝 |
 | LabelResult | 標示數值、單位、包裝份數與待確認欄位 |
-| FoodEstimate | 食材名稱、估計份量、營養值與估算說明 |
+| FoodEstimate | 食材名稱、估計份量與營養值 |
 | UserSettings | NutritionGoal、ReminderSettings 與貨幣設定 |
 | ReminderSettings | 提醒開關與本地提醒時間 |
 
