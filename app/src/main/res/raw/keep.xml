@@ -1,0 +1,2 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@layout/activity,@layout/add,@layout/editor,@layout/goals,@layout/history,@layout/meal_row,@layout/today,@drawable/amber,@drawable/card,@drawable/input,@drawable/primary,@drawable/secondary,@string/text_*,@color/fl_*,@id/fl_*" />

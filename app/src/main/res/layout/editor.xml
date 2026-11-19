@@ -1,0 +1,243 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/fl_bg">
+
+    <!-- 來源/提示資訊區塊 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/amber">
+
+        <TextView
+            android:id="@+id/fl_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_35"
+            android:textSize="20sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_36"
+            android:textSize="14sp"
+            android:textColor="@color/fl_ink" />
+    </LinearLayout>
+
+    <!-- 名稱欄位 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_37"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_name" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_name"
+        android:inputType="text"
+        android:hint="@string/text_38"
+        android:maxLength="100" />
+
+    <!-- 類型選擇 (Spinner) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_40"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink" />
+
+    <Spinner
+        android:id="@+id/fl_type"
+        android:layout_width="match_parent"
+        android:layout_height="52dp" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_meal_date"
+        android:text="@string/text_41"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <!-- 單位欄位 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_42"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_unit" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_unit"
+        android:inputType="text"
+        android:hint="@string/text_43"
+        android:maxLength="100" />
+
+    <!-- 份量欄位 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_45"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_servings" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_servings"
+        android:inputType="numberDecimal"
+        android:hint="@string/text_46"
+        android:maxLength="100" />
+
+    <!-- 營養標示大標題 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_48"
+        android:textSize="20sp"
+        android:textColor="@color/fl_ink" />
+
+    <!-- 熱量 (Kcal) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_49"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_kcal" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_kcal"
+        android:inputType="numberDecimal"
+        android:hint="@string/text_50"
+        android:maxLength="100" />
+
+    <!-- 蛋白質 (P) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_52"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_p" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_p"
+        android:inputType="numberDecimal"
+        android:hint="@string/text_53"
+        android:maxLength="100" />
+
+    <!-- 碳水化合物 (C) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_55"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_c" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_c"
+        android:inputType="numberDecimal"
+        android:hint="@string/text_56"
+        android:maxLength="100" />
+
+    <!-- 脂肪 (F) -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_58"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_f" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_f"
+        android:inputType="numberDecimal"
+        android:hint="@string/text_59"
+        android:maxLength="100" />
+
+    <!-- 價格 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_61"
+        android:textSize="14sp"
+        android:textColor="@color/fl_ink"
+        android:labelFor="@id/fl_price" />
+
+    <EditText
+        style="@style/FlInput"
+        android:id="@+id/fl_price"
+        android:inputType="number"
+        android:hint="@string/text_62"
+        android:maxLength="100" />
+
+    <!-- 總計顯示區塊 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/secondary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_64"
+            android:textSize="16sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:id="@+id/fl_editor_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_65"
+            android:textSize="17sp"
+            android:textColor="@color/fl_ink" />
+    </LinearLayout>
+
+    <!-- 儲存與刪除按鈕 -->
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_save"
+        android:text="@string/text_66"
+        android:background="@drawable/primary"
+        android:textColor="@color/fl_white" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_delete"
+        android:text="@string/text_67"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+</LinearLayout>

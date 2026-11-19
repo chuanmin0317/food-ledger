@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/fl_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_11"
+        android:textSize="13sp"
+        android:textColor="@color/fl_muted" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_date"
+        android:text="@string/text_12"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <!-- 營養與熱量統計卡片 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/card">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_5"
+            android:textSize="17sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:id="@+id/fl_calories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_6"
+            android:textSize="32sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:id="@+id/fl_calories_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_7"
+            android:textSize="14sp"
+            android:textColor="@color/fl_muted" />
+
+        <ProgressBar
+            android:id="@+id/fl_calories_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginBottom="18dp"
+            android:max="1000"
+            android:progressTint="@color/fl_green"
+            android:progressBackgroundTint="@color/fl_line" />
+
+        <TextView
+            android:id="@+id/fl_protein"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_8"
+            android:textSize="16sp"
+            android:textColor="@color/fl_ink" />
+
+        <ProgressBar
+            android:id="@+id/fl_protein_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginBottom="18dp"
+            android:max="1000"
+            android:progressTint="@color/fl_green"
+            android:progressBackgroundTint="@color/fl_line" />
+
+        <TextView
+            android:id="@+id/fl_carbs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_9"
+            android:textSize="16sp"
+            android:textColor="@color/fl_ink" />
+
+        <ProgressBar
+            android:id="@+id/fl_carbs_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginBottom="18dp"
+            android:max="1000"
+            android:progressTint="@color/fl_green"
+            android:progressBackgroundTint="@color/fl_line" />
+
+        <TextView
+            android:id="@+id/fl_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_10"
+            android:textSize="16sp"
+            android:textColor="@color/fl_ink" />
+
+        <ProgressBar
+            android:id="@+id/fl_fat_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginBottom="18dp"
+            android:max="1000"
+            android:progressTint="@color/fl_green"
+            android:progressBackgroundTint="@color/fl_line" />
+    </LinearLayout>
+
+    <!-- 費用統計區塊 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/amber">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_13"
+            android:textSize="16sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:id="@+id/fl_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_14"
+            android:textSize="30sp"
+            android:textColor="@color/fl_ink" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_15"
+        android:textSize="20sp"
+        android:textColor="@color/fl_ink" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_16"
+        android:textSize="12sp"
+        android:textColor="@color/fl_muted" />
+
+    <LinearLayout
+        android:id="@+id/fl_meals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_new_meal"
+        android:text="@string/text_17"
+        android:background="@drawable/primary"
+        android:textColor="@color/fl_white" />
+
+</LinearLayout>
+

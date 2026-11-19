@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/fl_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/card">
+
+        <TextView
+            android:id="@+id/fl_row_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_92"
+            android:textSize="12sp"
+            android:textColor="@color/fl_muted" />
+
+        <TextView
+            android:id="@+id/fl_row_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_93"
+            android:textSize="19sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:id="@+id/fl_row_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_94"
+            android:textSize="14sp"
+            android:textColor="@color/fl_muted" />
+
+        <TextView
+            android:id="@+id/fl_row_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_95"
+            android:textSize="18sp"
+            android:textColor="@color/fl_ink" />
+
+    </LinearLayout>
+
+</LinearLayout>

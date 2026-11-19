@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fl_green">#18583B</color>
+    <color name="fl_bg">#F5F7F2</color>
+    <color name="fl_white">#FFFFFF</color>
+    <color name="fl_ink">#20392D</color>
+    <color name="fl_muted">#68776D</color>
+    <color name="fl_line">#DCE5DB</color>
+    <color name="fl_soft">#E6F0E1</color>
+    <color name="fl_amber">#FFF1D8</color>
 </resources>

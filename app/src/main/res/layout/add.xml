@@ -1,0 +1,132 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/fl_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_21"
+        android:textSize="26sp"
+        android:textColor="@color/fl_ink" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_22"
+        android:textSize="14sp"
+        android:textColor="@color/fl_muted" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/secondary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_23"
+            android:textSize="23sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_24"
+            android:textSize="14sp"
+            android:textColor="@color/fl_ink" />
+
+        <Button
+            style="@style/FlButton"
+            android:id="@+id/fl_label"
+            android:text="@string/text_25"
+            android:background="@drawable/primary"
+            android:textColor="@color/fl_white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/secondary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_26"
+            android:textSize="23sp"
+            android:textColor="@color/fl_ink" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_27"
+            android:textSize="14sp"
+            android:textColor="@color/fl_ink" />
+
+        <Button
+            style="@style/FlButton"
+            android:id="@+id/fl_photo"
+            android:text="@string/text_28"
+            android:background="@drawable/primary"
+            android:textColor="@color/fl_white" />
+    </LinearLayout>
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_album"
+        android:text="@string/text_29"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_manual"
+        android:text="@string/text_30"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_31"
+        android:textSize="22sp"
+        android:textColor="@color/fl_ink" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_soy"
+        android:text="@string/text_32"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_rice"
+        android:text="@string/text_33"
+        android:background="@drawable/secondary"
+        android:textColor="@color/fl_green" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_34"
+        android:textSize="13sp"
+        android:textColor="@color/fl_muted" />
+
+</LinearLayout>
