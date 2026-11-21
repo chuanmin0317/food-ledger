@@ -181,6 +181,19 @@
         android:hint="@string/text_59"
         android:maxLength="100" />
 
+    <Button
+        style="@style/FlButton"
+        android:id="@+id/fl_add_item"
+        android:text="@string/text_96"
+        android:background="@drawable/primary"
+        android:textColor="@color/fl_white" />
+
+    <LinearLayout
+        android:id="@+id/fl_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
     <!-- 價格 -->
     <TextView
         android:layout_width="match_parent"

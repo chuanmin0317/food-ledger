@@ -66,8 +66,8 @@
     <string name="text_63">整餐實付金額（新台幣元）</string>
     <string name="text_64">本餐營養合計</string>
     <string name="text_65">尚未輸入</string>
-    <string name="text_66">儲存餐點</string>
-    <string name="text_67">刪除此餐點</string>
+    <string name="text_66">儲存</string>
+    <string name="text_67">刪除</string>
     <string name="text_68">依你的需求設定每日目標</string>
     <string name="text_69">取消勾選的營養項目不計算差額。</string>
     <string name="text_70">追蹤熱量</string>
@@ -96,4 +96,6 @@
     <string name="text_93">餐點</string>
     <string name="text_94">營養</string>
     <string name="text_95">NT$ 0</string>
+    <string name="text_96">新增餐點</string>
+    <string name="text_97">刪除餐點</string>
 </resources>
