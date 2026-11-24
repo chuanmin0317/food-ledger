@@ -21,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_content, new DashboardFragment())
+                    .commit();
+        }
 
         navAdd = findViewById(R.id.fl_nav_add);
         navAdd.setOnClickListener(v -> {
