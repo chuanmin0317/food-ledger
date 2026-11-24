@@ -188,6 +188,7 @@ public class MealActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             try {
                 collectMealDraft(currentDraft);
+
             } catch (NumberFormatException e) {
                 return;
             }
@@ -256,6 +257,12 @@ public class MealActivity extends AppCompatActivity {
                 mealType.setSelection(i + 1);
                 break;
             }
+        }
+
+        if (draft.getExistingMealId() == null) {
+            deleteButton.setVisibility(View.GONE);
+        } else {
+            deleteButton.setVisibility(View.VISIBLE);
         }
 
         renderItems();
