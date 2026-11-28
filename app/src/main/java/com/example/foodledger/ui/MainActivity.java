@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.foodledger.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button backButton, navAdd;
+    private Button backButton, navAdd, navGoal;
     private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         navAdd = findViewById(R.id.fl_nav_add);
         navAdd.setOnClickListener(v -> {
             Intent intent = new Intent(this, MealActivity.class);
+            startActivity(intent);
+        });
+
+        navGoal = findViewById(R.id.fl_nav_goals);
+        navGoal.setOnClickListener(v -> {
+            Intent intent = new Intent(this, GoalActivity.class);
             startActivity(intent);
         });
 
